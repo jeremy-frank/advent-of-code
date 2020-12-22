@@ -1,0 +1,131 @@
+"""
+day13b - https://adventofcode.com/2020/day/13
+
+* Part 1
+
+
+The first line is your estimate of the earliest timestamp you could depart on a bus.
+
+The second line lists the bus IDs that are in service according to the shuttle company;
+Entries that show x must be out of service, so you decide to ignore them.
+
+To save time once you arrive, your goal is to figure out the earliest bus you can 
+take to the airport.
+
+
+What is the ID of the earliest bus you can take to the airport 
+multiplied by the number of minutes you'll need to wait for that bus?
+
+11:21pm - 222
+
+* Part 2
+
+An x in the schedule means there are no constraints on what bus IDs must depart at that time.
+
+The only bus departures that matter are the listed bus IDs at their specific offsets from t.
+Those bus IDs can depart at other times, and other bus IDs can depart at those times.
+
+What is the earliest timestamp such that all of the listed bus IDs depart at 
+offsets matching their positions in the list?
+
+Example: 1068781
+
+Here are some other examples:
+The earliest timestamp that matches the list 17,x,13,19 is 3417.
+67,7,59,61 first occurs at timestamp 754018.
+67,x,7,59,61 first occurs at timestamp 779210.
+67,7,x,59,61 first occurs at timestamp 1261476.
+1789,37,47,1889 first occurs at timestamp 1202161486.
+
+
+biggest bus is 409
+
+
+brute force times:
+got to 51022750204471 using Intel(R) Xeon(R) Platinum 8124M CPU @ 3.00GHz
+/apollo/env/envImprovement/bin/python3 ./day13b.py  48505.17s user 0.18s system 100% cpu 13:28:25.27 total
+
+
+
+"""
+def load_data():
+    data = []
+    datafile = 'input-day13'
+    with open(datafile, 'r') as input:
+        for line in input:
+            data.append(line.strip())
+
+    biggest_bus = 0
+    buses = {}
+    counter = 0
+    for item in data[1].split(","):
+        if item != "x":
+            bus = int(item)
+            buses[bus] = counter
+            if bus > biggest_bus:
+                biggest_bus = bus
+
+        counter += 1
+    
+    return biggest_bus, buses
+
+
+def process_data(big_bus, buses):
+    """
+    can only possibly happen once per largest bus, so we should jump based on that
+
+    should be able to remove biggest bus from dict of things to check
+
+    answer will be over 100 000 000 000 000
+
+    408 270 049 879 073
+    408T, wow
+    """
+
+    found_sync = False
+
+    big_jump = buses[biggest_bus]
+    timestamp = big_bus - big_jump
+
+    # remove biggest bus to save processing time:
+    del buses[biggest_bus]
+
+    print(f"initial timestamp is {timestamp}")
+
+    counter = 0
+    while not found_sync:
+        if check_time(timestamp, buses):
+            found_sync = True
+        else:
+            timestamp += big_bus
+            counter += 1
+
+        if counter > 250000000:
+            print(f"Checking timestamp {timestamp}")
+            counter = 0
+
+    print(f"timestamp is {timestamp}")
+    return timestamp
+
+
+def check_time(timestamp, buses):
+    full_sync = True
+    for bus in buses:
+        modulus = timestamp % bus
+        if buses[bus] == 0 and modulus == 0:
+            pass
+        elif bus - modulus != buses[bus]:
+            full_sync = False
+            break
+
+    return full_sync
+
+
+
+if __name__ == '__main__':
+    biggest_bus, buses = load_data()
+    print(f"the biggest bus is {biggest_bus}")
+    print(buses)
+
+    results = process_data(biggest_bus, buses)
+    print(f"Part 2 - {results}")
