@@ -46,7 +46,7 @@ def part1(data):
 def evaluate_problem(prob):
     answer = 0
 
-    operand = "+"
+    operator = "+"
     parens = False
     for x in prob:
         
@@ -67,9 +67,9 @@ def evaluate_problem(prob):
                     # recursively call evaluate_problem with just the parentheses part of the problem
                     paren_answer = evaluate_problem(paren_prob)
 
-                    if operand == "+":
+                    if operator == "+":
                         answer += paren_answer
-                    elif operand == "*":
+                    elif operator == "*":
                         answer *= paren_answer
                     parens = False
                 else:
@@ -86,16 +86,16 @@ def evaluate_problem(prob):
                     open_paren_count += 1
             paren_prob = [x[1:]]
 
-        # if operand, store it
+        # if operator, store it
         elif x in ["+", "*"]:
-            operand = x
+            operator = x
 
-        # if number, apply operand
+        # if number, apply operator
         else:
             num = int(x)
-            if operand == "+":
+            if operator == "+":
                 answer += num
-            elif operand == "*":
+            elif operator == "*":
                 answer *= num
             else:
                 print("Error!")

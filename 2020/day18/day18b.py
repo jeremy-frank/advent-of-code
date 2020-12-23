@@ -5,9 +5,7 @@ day18b - https://adventofcode.com/2020/day/18
 
 * Part 2
 
-Now, addition and multiplication have different precedence levels, 
- but they're not the ones you're familiar with.
-Instead, addition is evaluated before multiplication.
+Addition is evaluated before multiplication.
 
 Examples:
 1 + 2 * 3 + 4 * 5 + 6 becomes 231
@@ -42,7 +40,7 @@ def part2(data):
 
 
 def unwind_parens(prob):
-    # recursively pull off layers of parens until we have a numbers and operands only problem
+    # recursively pull off layers of parens until we have a numbers and operators only problem
     clean_prob = []
     parens = False
     for x in prob:
@@ -81,63 +79,32 @@ def unwind_parens(prob):
             clean_prob.append(x)
 
 
-    # now that we have removed all the parens, we can evaluate
-    answer = evaluate_addition(clean_prob)
-    return answer
+    # now that we have removed all the parens, we can evaluate the operators
+    mult_only_prob = evaluate_operator(clean_prob, "+")
+    answer = evaluate_operator(mult_only_prob, "*")
+    return answer[0]
 
 
-def evaluate_addition(prob):
+def evaluate_operator(prob, op):
     # evaluate a problem that has had all parentheses removed
-    # do all addition from left to right - this will be recursively called until there is no addition left
-    print(f"add  {prob}")
+    # perform either + or * from left to right - this will be recursively called until there are no instances of that operator
+    print(f"{op} {prob}")
 
-    if "+" in prob:
+    if op in prob:
         for i in range(len(prob)):
-            if prob[i] == "+":
-                probsum = int(prob[i-1]) + int(prob[i+1])
+            if prob[i] == op:
 
-                if i >= 1:
-                    before = prob[:i-1]
-                else:
-                    before = []
-
-                if i < len(prob) - 2:
-                    after = prob[i+2:]
-                else:
-                    after = []
+                if prob[i] == "+":
+                    result = int(prob[i-1]) + int(prob[i+1])
+                elif prob[i] == "*":
+                    result = int(prob[i-1]) * int(prob[i+1])
 
                 # stitch together a new problem statement
-                new_prob = before + [probsum] + after
+                new_prob = prob[:i-1] + [result] + prob[i+2:]
                 break
-        return evaluate_addition(new_prob)
+        return evaluate_operator(new_prob, op)
 
-    return evaluate_multiplication(prob)
-
-
-def evaluate_multiplication(prob):
-    # now that all addition has been calculated, do all the multiplication from left to right
-    # in retrospect, I could probably reuse the recursive addition logic, but it's faster to copy/paste from part1
-    print(f"mult {prob}")
-
-    answer = 0
-    operand = "+"
-    for x in prob:
-        # if operand, store it
-        if x == "*":
-            operand = x
-
-        # if number, apply operand
-        else:
-            num = int(x)
-            if operand == "+":
-                answer += num
-            elif operand == "*":
-                answer *= num
-            else:
-                print("Error!")
-
-    #print(f"{prob} = {answer}")
-    return answer
+    return prob
 
 
 if __name__ == '__main__':
