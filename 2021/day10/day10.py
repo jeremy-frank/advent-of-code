@@ -1,7 +1,8 @@
 """
+--- Day 10: Syntax Scoring ---
 https://adventofcode.com/2021/day/10
 
-summary: 
+summary: track open/close brackets
 
 """
 from copy import deepcopy
