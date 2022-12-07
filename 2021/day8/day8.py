@@ -9,11 +9,12 @@ Part 2: 1004688
 """
 from copy import deepcopy
 
+
 def load_data():
-    #datafile = 'input-day8-example'
-    datafile = 'input-day8'
+    # datafile = 'input-day8-example'
+    datafile = "input-day8"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             patterns_and_values = line.strip().split(" | ")
             signal_patterns = patterns_and_values[0].split()
@@ -65,7 +66,7 @@ def part2(data):
     Solve for all 10 digits (0 - 9), then use the map of signals to numbers to figure out the output values
     What do you get if you add up all of the output values?
 
-    Hmm I should try itertools.permutations 
+    Hmm I should try itertools.permutations
     """
     total_output_value = 0
     for item in data:
@@ -76,7 +77,7 @@ def part2(data):
 
 def map_signal_patterns(signal_patterns):
     number_map = {}
-    
+
     # First, solve for 1/4/7/8
     for pattern in signal_patterns:
         p = "".join(sorted(pattern))
@@ -105,7 +106,7 @@ def map_signal_patterns(signal_patterns):
                 for char in number_map["4"]:
                     if char not in p:
                         is_nine = False
-                
+
                 if is_nine:
                     number_map["9"] = p
                 else:
@@ -133,7 +134,7 @@ def map_signal_patterns(signal_patterns):
                     print("ERROR in 2/3/5 logic")
 
     # flip the keys and values in the number map to create the signal map
-    signal_map = { number_map[x]: x for x in number_map}
+    signal_map = {number_map[x]: x for x in number_map}
     return signal_map
 
 
@@ -145,7 +146,7 @@ def compute_output_value(output_values, signal_map):
     return int(final_value)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data1: {data}\n")
 

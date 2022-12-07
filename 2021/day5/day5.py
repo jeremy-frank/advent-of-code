@@ -10,13 +10,14 @@ Part 2: 18605
 from copy import deepcopy
 from pprint import pprint
 
+
 def load_data():
-    #datafile = 'input-day5-example'
-    datafile = 'input-day5'
+    # datafile = 'input-day5-example'
+    datafile = "input-day5"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
-            str_points = line.strip().replace(" -> ",",").split(",")
+            str_points = line.strip().replace(" -> ", ",").split(",")
             points = [int(point) for point in str_points]
             data.append(points)
     return data
@@ -32,21 +33,21 @@ def part1_and_2(lines, draw_diagonal=False):
     """
     # create the empty graph
     graph = dict()
-    for y in range(0,1000):
+    for y in range(0, 1000):
         graph[y] = [0 for x in range(1000)]
 
     # draw lines:
     for line in lines:
         x1, y1, x2, y2 = line[0], line[1], line[2], line[3]
- 
+
         # vertical line:
         if x1 == x2:
-            for i in range(min(y1, y2), max(y1, y2)+1):
+            for i in range(min(y1, y2), max(y1, y2) + 1):
                 graph[i][x1] += 1
 
         # horizontal line:
         elif y1 == y2:
-            for i in range(min(x1, x2), max(x1, x2)+1):
+            for i in range(min(x1, x2), max(x1, x2) + 1):
                 graph[y1][i] += 1
 
         # everything else must be a diagonal line:
@@ -59,9 +60,9 @@ def part1_and_2(lines, draw_diagonal=False):
                 graph[y1][x1] += 1
 
                 x1 += 1
-                if y1 < y2: # downhill slope
+                if y1 < y2:  # downhill slope
                     y1 += 1
-                else: # uphill slope
+                else:  # uphill slope
                     y1 -= 1
 
     # count the number of crossing lines
@@ -70,7 +71,7 @@ def part1_and_2(lines, draw_diagonal=False):
         for spot in graph[y]:
             if spot > 1:
                 crossing_lines += 1
- 
+
     return crossing_lines
 
 
@@ -81,6 +82,7 @@ def alternate_solution(lines, draw_diagonal=False):
     This solution should be faster, but harder to troubleshoot, as you cannot just print out the graph
     """
     from collections import defaultdict
+
     graph = defaultdict(int)
 
     crossing_lines = 0
@@ -88,17 +90,17 @@ def alternate_solution(lines, draw_diagonal=False):
     # add coordinates to the "graph":
     for line in lines:
         x1, y1, x2, y2 = line[0], line[1], line[2], line[3]
- 
+
         # vertical line:
         if x1 == x2:
-            for i in range(min(y1, y2), max(y1, y2)+1):
+            for i in range(min(y1, y2), max(y1, y2) + 1):
                 graph[(i, x1)] += 1
                 if graph[(i, x1)] == 2:
                     crossing_lines += 1
 
         # horizontal line:
         elif y1 == y2:
-            for i in range(min(x1, x2), max(x1, x2)+1):
+            for i in range(min(x1, x2), max(x1, x2) + 1):
                 graph[(y1, i)] += 1
                 if graph[(y1, i)] == 2:
                     crossing_lines += 1
@@ -123,7 +125,7 @@ def alternate_solution(lines, draw_diagonal=False):
     return crossing_lines
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data: {data}\n")
 

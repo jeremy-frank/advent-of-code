@@ -10,18 +10,19 @@ Part 2: 8112
 from copy import deepcopy
 from pprint import pprint
 
+
 def load_data():
-    #datafile = 'input-day4-example-numbers'
-    datafile = 'input-day4-numbers'
-    with open(datafile, 'r') as input:
+    # datafile = 'input-day4-example-numbers'
+    datafile = "input-day4-numbers"
+    with open(datafile, "r") as input:
         for line in input:
             numbers = line.strip().split(",")
 
-    #datafile = 'input-day4-example-boards'
-    datafile = 'input-day4-boards'
+    # datafile = 'input-day4-example-boards'
+    datafile = "input-day4-boards"
     boards = {}
     board_num = 0
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             if not line.strip():
                 board_num += 1
@@ -33,7 +34,7 @@ def load_data():
     return numbers, boards
 
 
-class Bingo():
+class Bingo:
     def __init__(self, numbers, boards):
         self.numbers = numbers
         self.boards = boards
@@ -86,7 +87,6 @@ class Bingo():
             elif found_winner:
                 self.prune_winning_boards()
 
-
     def check_for_winning_board(self):
         for board in self.boards:
             columns = [[] for i in range(5)]
@@ -134,7 +134,7 @@ class Bingo():
         self.boards = pruned_boards
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     numbers, boards = load_data()
     print(f"Numbers: {numbers}\n")
     print(f"Bingo boards: {boards}\n")

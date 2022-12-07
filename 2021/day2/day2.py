@@ -8,16 +8,17 @@ Part 1 - 2322630
 Part 2 - 2105273490
 """
 
+
 def load_data():
-    #datafile = 'input-day2-example'
-    datafile = 'input-day2'
+    # datafile = 'input-day2-example'
+    datafile = "input-day2"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             line_list = line.split()
             line_list[1] = int(line_list[1])
             data.append(line_list)
-    
+
     return data
 
 
@@ -41,7 +42,7 @@ def part1(commands):
             y -= num
         else:
             y += num
-    
+
     return x * y
 
 
@@ -69,11 +70,11 @@ def part2(commands):
             aim -= num
         else:
             aim += num
-    
+
     return x * depth
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"{data}\n")
 

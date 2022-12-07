@@ -10,18 +10,19 @@ Part 2: 8112
 from copy import deepcopy
 from pprint import pprint
 
+
 def load_data():
-    #datafile = 'input-day4-example-guesses'
-    datafile = 'input-day4-guesses'
-    with open(datafile, 'r') as input:
+    # datafile = 'input-day4-example-guesses'
+    datafile = "input-day4-guesses"
+    with open(datafile, "r") as input:
         for line in input:
             guesses = line.strip().split(",")
 
-    #datafile = 'input-day4-example-boards'
-    datafile = 'input-day4-boards'
+    # datafile = 'input-day4-example-boards'
+    datafile = "input-day4-boards"
     boards = {}
     board_num = 0
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             if not line.strip():
                 board_num += 1
@@ -130,7 +131,7 @@ def remove_winning_boards(boards):
     return pruned_boards
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     guesses, boards = load_data()
     print(f"Guesses: {guesses}\n")
     print(f"Bingo boards: {boards}\n")

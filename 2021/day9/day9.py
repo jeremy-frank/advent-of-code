@@ -9,11 +9,12 @@ Part 2: 1075536
 """
 from copy import deepcopy
 
+
 def load_data():
-    #datafile = 'input-day9-example'
-    datafile = 'input-day9'
+    # datafile = 'input-day9-example'
+    datafile = "input-day9"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             data.append([int(char) for char in line.strip()])
     return data
@@ -28,7 +29,7 @@ def part1(grid):
     Find all of the low points on your heightmap.
     What is the sum of the risk levels of all low points on your heightmap?
     """
-    low_points=[]
+    low_points = []
     for y_pos, line in enumerate(grid):
         for x_pos, point in enumerate(line):
             if check_for_low_point(grid, y_pos, x_pos, point):
@@ -41,19 +42,19 @@ def part1(grid):
 
 def check_for_low_point(grid, y, x, point):
     # look up
-    if y > 0 and point >= grid[y-1][x]:
+    if y > 0 and point >= grid[y - 1][x]:
         return False
 
     # look down
-    if y < len(grid)-1 and point >= grid[y+1][x]:
+    if y < len(grid) - 1 and point >= grid[y + 1][x]:
         return False
 
     # look left
-    if x > 0 and point >= grid[y][x-1]:
+    if x > 0 and point >= grid[y][x - 1]:
         return False
 
     # look right
-    if x < len(grid[y])-1 and point >= grid[y][x+1]:
+    if x < len(grid[y]) - 1 and point >= grid[y][x + 1]:
         return False
 
     return True
@@ -69,7 +70,7 @@ def part2(grid):
 
     What do you get if you multiply together the sizes of the three largest basins?
     """
-    low_points=[]
+    low_points = []
     for y, line in enumerate(grid):
         for x, point in enumerate(line):
             if check_for_low_point(grid, y, x, point):
@@ -98,29 +99,33 @@ def find_basin_size(grid, y, x, point, size):
     print(f"  point x{x} y{y} {point}, basin size {size}")
 
     # look up
-    if y > 0 and grid[y-1][x] not in [9, "x"] and point < grid[y-1][x]:
-        new_point = grid[y-1][x]
-        size = find_basin_size(grid, y-1, x, new_point, size)
+    if y > 0 and grid[y - 1][x] not in [9, "x"] and point < grid[y - 1][x]:
+        new_point = grid[y - 1][x]
+        size = find_basin_size(grid, y - 1, x, new_point, size)
 
     # look down
-    if y < len(grid)-1 and grid[y+1][x] not in [9, "x"] and point < grid[y+1][x]:
-        new_point = grid[y+1][x]
-        size = find_basin_size(grid, y+1, x, new_point, size)
+    if y < len(grid) - 1 and grid[y + 1][x] not in [9, "x"] and point < grid[y + 1][x]:
+        new_point = grid[y + 1][x]
+        size = find_basin_size(grid, y + 1, x, new_point, size)
 
     # look left
-    if x > 0 and grid[y][x-1] not in [9, "x"] and point < grid[y][x-1]:
-        new_point = grid[y][x-1]
-        size = find_basin_size(grid, y, x-1, new_point, size)
+    if x > 0 and grid[y][x - 1] not in [9, "x"] and point < grid[y][x - 1]:
+        new_point = grid[y][x - 1]
+        size = find_basin_size(grid, y, x - 1, new_point, size)
 
     # look right
-    if x < len(grid[0])-1 and grid[y][x+1] not in [9, "x"] and point < grid[y][x+1]:
-        new_point = grid[y][x+1]
-        size = find_basin_size(grid, y, x+1, new_point, size)
+    if (
+        x < len(grid[0]) - 1
+        and grid[y][x + 1] not in [9, "x"]
+        and point < grid[y][x + 1]
+    ):
+        new_point = grid[y][x + 1]
+        size = find_basin_size(grid, y, x + 1, new_point, size)
 
     return size
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data1: {data}\n")
     print(f"Part 1: {part1(deepcopy(data))}\n")

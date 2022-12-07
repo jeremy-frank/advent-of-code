@@ -7,11 +7,12 @@ summary: track open/close brackets
 """
 from copy import deepcopy
 
+
 def load_data():
-    #datafile = 'input-day10-example'
-    datafile = 'input-day10'
+    # datafile = 'input-day10-example'
+    datafile = "input-day10"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             data.append(line.strip())
     return data
@@ -115,7 +116,7 @@ def part2(data):
                     if char == char_check[active_chunks[-1]]:
                         active_chunks.pop(-1)
                     else:
-                        #print(f"Expected close to {active_chunks[-1]} but found {char}")
+                        # print(f"Expected close to {active_chunks[-1]} but found {char}")
                         found_illegal_char = True
                         active_chunks = []
 
@@ -142,11 +143,11 @@ def calculate_incomplete_score(chunks):
     for chunk in chunks:
         score = score * 5
         score += points[chunk]
-    
+
     return score
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data1: {data}\n")
     print(f"Part 1: {part1(deepcopy(data))}\n")

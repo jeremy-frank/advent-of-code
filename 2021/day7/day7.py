@@ -10,10 +10,11 @@ Part 2: 85015836 (Value was 460)
 from copy import deepcopy
 from statistics import mean
 
+
 def load_data():
-    #datafile = 'input-day7-example'
-    datafile = 'input-day7'
-    with open(datafile, 'r') as input:
+    # datafile = 'input-day7-example'
+    datafile = "input-day7"
+    with open(datafile, "r") as input:
         for line in input:
             str_data = line.strip().split(",")
             data = [int(x) for x in str_data]
@@ -28,7 +29,7 @@ def part1(crabs):
     How much fuel must they spend to align to that position?
     """
     lowest_fuel_cost = 100000000
-    for i in range(crabs[0], crabs[-1]+1):
+    for i in range(crabs[0], crabs[-1] + 1):
         fuel_cost = 0
 
         for crab in crabs:
@@ -43,7 +44,7 @@ def part1(crabs):
 
 def part2(crabs):
     """
-    Each change of 1 step in horizontal position costs 1 more unit of fuel than the last: 
+    Each change of 1 step in horizontal position costs 1 more unit of fuel than the last:
      the first step costs 1, the second step costs 2, the third step costs 3, and so on.
     How much fuel must they spend to align to that position?
     """
@@ -53,13 +54,13 @@ def part2(crabs):
     fuel_cost = 0
     for crab in crabs:
         distance = abs(crab - crab_mean)
-        for i in range(1, distance+1):
+        for i in range(1, distance + 1):
             fuel_cost += i
 
     return fuel_cost
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data: {data}\n")
 

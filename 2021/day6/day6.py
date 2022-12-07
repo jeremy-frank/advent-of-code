@@ -10,10 +10,11 @@ Part 2: 1689540415957
 from copy import deepcopy
 from pprint import pprint
 
+
 def load_data():
-    #datafile = 'input-day6-example'
-    datafile = 'input-day6'
-    with open(datafile, 'r') as input:
+    # datafile = 'input-day6-example'
+    datafile = "input-day6"
+    with open(datafile, "r") as input:
         for line in input:
             str_data = line.strip().split(",")
             data = [int(x) for x in str_data]
@@ -43,16 +44,16 @@ def part2(fish_list):
     """
     How many lanternfish would there be after 256 days?
     """
-    fish = { i:0 for i in range(9) }
+    fish = {i: 0 for i in range(9)}
     for timer in fish_list:
         fish[timer] += 1
 
     for day in range(256):
-        new_fish = { i:0 for i in range(9) }
+        new_fish = {i: 0 for i in range(9)}
 
         for timer in fish:
             if timer > 0:
-                new_fish[timer-1] += fish[timer]
+                new_fish[timer - 1] += fish[timer]
             else:
                 new_fish[6] += fish[timer]
                 new_fish[8] += fish[timer]
@@ -63,7 +64,7 @@ def part2(fish_list):
     return sum(fish.values())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data: {data}\n")
 

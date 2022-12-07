@@ -11,11 +11,12 @@ from copy import deepcopy
 from collections import defaultdict
 from pprint import pprint
 
+
 def load_data():
-    #datafile = 'input-day14-example'
-    datafile = 'input-day14'
+    # datafile = 'input-day14-example'
+    datafile = "input-day14"
     rules = {}
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for full_line in input:
             line = full_line.strip()
             if "->" in line:
@@ -42,7 +43,7 @@ def part1(polymer, rules):
         for i, p in enumerate(polymer):
             new_polymer += p
             if i < len(polymer) - 1:
-                combo = p + polymer[i+1]
+                combo = p + polymer[i + 1]
                 if combo in rules:
                     new_polymer += rules[combo]
 
@@ -74,7 +75,7 @@ def part2(polymer, rules):
     pair_tracker = defaultdict(int)
     for i, p in enumerate(polymer):
         if i < len(polymer) - 1:
-            pair = p + polymer[i+1]
+            pair = p + polymer[i + 1]
             pair_tracker[pair] += 1
 
     for step in range(40):
@@ -108,7 +109,7 @@ def part2(polymer, rules):
     return most_common_element - least_common_element
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     polymer, rules = load_data()
     print(f"Polymer: {polymer}\n")
     print(f"Rules: {rules}\n")

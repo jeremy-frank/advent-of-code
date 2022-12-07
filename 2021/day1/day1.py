@@ -8,14 +8,15 @@ Part 1 - 1266
 Part 2 - 1217
 """
 
+
 def load_data():
     data = []
-    datafile = 'input-day1'
-    with open(datafile, 'r') as input:
+    datafile = "input-day1"
+    with open(datafile, "r") as input:
         for line in input:
             num = line.strip()
             data.append(int(num))
-    
+
     return data
 
 
@@ -30,7 +31,7 @@ def part1(depths):
         if depth > previous_depth:
             depth_increases += 1
         previous_depth = depth
-    
+
     return depth_increases
 
 
@@ -43,15 +44,15 @@ def part2(depths):
     previous_depth_sum = depths[0] + depths[1] + depths[2]
 
     for i in range(len(depths)):
-        if i+2 >= len(depths):
+        if i + 2 >= len(depths):
             return depth_increases
-        current_depth_sum = depths[i] + depths[i+1] + depths[i+2]
+        current_depth_sum = depths[i] + depths[i + 1] + depths[i + 2]
         if current_depth_sum > previous_depth_sum:
             depth_increases += 1
         previous_depth_sum = current_depth_sum
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"{data}\n")
 

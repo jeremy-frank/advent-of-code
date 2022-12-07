@@ -19,12 +19,13 @@ So, Part 2 printed out mirrored:
 from copy import deepcopy
 from pprint import pprint
 
+
 def load_data():
-    #datafile = 'input-day13-example'
-    datafile = 'input-day13'
+    # datafile = 'input-day13-example'
+    datafile = "input-day13"
     points = []
     folds = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             if "," in line:
                 coords = line.strip().split(",")
@@ -67,7 +68,7 @@ def part1(points, folds):
     # generate the empty grid
     grid = {}
     for iy in range(bigy + 1):
-        grid[iy] = [" " for ix in range(bigx+1)]    
+        grid[iy] = [" " for ix in range(bigx + 1)]
 
     # draw the points on the grid
     for coords in points:
@@ -99,7 +100,7 @@ def fold_up_along_y(grid, fold_line):
     # create new, smaller grid
     new_grid = {}
     for iy in range(fold_line):
-        new_grid[iy] = [" " for ix in range(len(grid[0]))]    
+        new_grid[iy] = [" " for ix in range(len(grid[0]))]
 
     # populate new grid
     for y in grid:
@@ -113,8 +114,8 @@ def fold_up_along_y(grid, fold_line):
                     adjusted_y = (fold_line - 1) - ((y - fold_line) - 1)
                     new_grid[adjusted_y][x] = "#"
 
-    #print(f"\nGrid after y fold along {fold_line}:")
-    #pprint(new_grid)
+    # print(f"\nGrid after y fold along {fold_line}:")
+    # pprint(new_grid)
     return new_grid
 
 
@@ -123,7 +124,7 @@ def fold_left_along_x(grid, fold_line):
     new_grid = {}
     new_x = len(grid[0]) - fold_line
     for iy in range(len(grid)):
-        new_grid[iy] = [" " for ix in range(new_x)]    
+        new_grid[iy] = [" " for ix in range(new_x)]
 
     # populate new grid
     for y in grid:
@@ -139,8 +140,8 @@ def fold_left_along_x(grid, fold_line):
                     adjusted_x = fold_line - 1 - x
                     new_grid[y][adjusted_x] = "#"
 
-    #print(f"\nGrid after x fold along {fold_line}:")
-    #pprint(new_grid)
+    # print(f"\nGrid after x fold along {fold_line}:")
+    # pprint(new_grid)
     return new_grid
 
 
@@ -164,7 +165,7 @@ def part2(points, folds):
     # generate the empty grid
     grid = {}
     for iy in range(bigy + 1):
-        grid[iy] = ["." for ix in range(bigx+1)]    
+        grid[iy] = ["." for ix in range(bigx + 1)]
 
     # draw the points on the grid
     for coords in points:
@@ -188,7 +189,7 @@ def part2(points, folds):
         print("".join(grid[line]))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     points, folds = load_data()
     print(f"Points: {points}")
     print(f"Folds: {folds}")

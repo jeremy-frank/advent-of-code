@@ -9,14 +9,15 @@ Part 2 - 4245351
 """
 from copy import deepcopy
 
+
 def load_data():
-    #datafile = 'input-day3-example'
-    datafile = 'input-day3'
+    # datafile = 'input-day3-example'
+    datafile = "input-day3"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             data.append(line.strip())
-    
+
     return data
 
 
@@ -76,7 +77,7 @@ def part2(report):
     """
     oxygen_rating = find_rating("oxygen", report)
     co2_rating = find_rating("co2", report)
-    
+
     return oxygen_rating * co2_rating
 
 
@@ -93,9 +94,11 @@ def find_rating(rating_type, original_report):
                 zero_count += 1
             else:
                 one_count += 1
-        
+
         # evaluate the counts and determine what the bad (unwanted) value is
-        if (rating_type == "oxygen" and zero_count > one_count) or (rating_type == "co2" and zero_count <= one_count):
+        if (rating_type == "oxygen" and zero_count > one_count) or (
+            rating_type == "co2" and zero_count <= one_count
+        ):
             bad_val = "1"
         else:
             bad_val = "0"
@@ -111,7 +114,7 @@ def find_rating(rating_type, original_report):
             return int(report[0], 2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data: {data}\n")
     print(f"Part 1: {part1(data)}")

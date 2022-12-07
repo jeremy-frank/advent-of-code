@@ -9,11 +9,12 @@ Part 2: 471
 """
 from copy import deepcopy
 
+
 def load_data():
-    #datafile = 'input-day11-example'
-    datafile = 'input-day11'
+    # datafile = 'input-day11-example'
+    datafile = "input-day11"
     data = []
-    with open(datafile, 'r') as input:
+    with open(datafile, "r") as input:
         for line in input:
             data.append([int(x) for x in line.strip()])
     return data
@@ -61,49 +62,49 @@ def part1(pod):
 
 
 def flash_octopus(x, y, pod, flashes):
-    flashes +=1 
+    flashes += 1
     pod[y][x] = "F"
 
     directions = {
         "up": {
             "check_edge": y > 0,
-            "y1": y-1,
+            "y1": y - 1,
             "x1": x,
         },
         "upleft": {
             "check_edge": y > 0 and x > 0,
-            "y1": y-1,
-            "x1": x-1,
+            "y1": y - 1,
+            "x1": x - 1,
         },
         "upright": {
-            "check_edge": y > 0 and x < len(pod[0])-1,
-            "y1": y-1,
-            "x1": x+1,
+            "check_edge": y > 0 and x < len(pod[0]) - 1,
+            "y1": y - 1,
+            "x1": x + 1,
         },
         "left": {
             "check_edge": x > 0,
             "y1": y,
-            "x1": x-1,
+            "x1": x - 1,
         },
         "right": {
-            "check_edge": x < len(pod[0])-1,
+            "check_edge": x < len(pod[0]) - 1,
             "y1": y,
-            "x1": x+1,
+            "x1": x + 1,
         },
         "down": {
-            "check_edge": y < len(pod)-1,
-            "y1": y+1,
+            "check_edge": y < len(pod) - 1,
+            "y1": y + 1,
             "x1": x,
         },
         "downleft": {
-            "check_edge": y < len(pod)-1 and x > 0,
-            "y1": y+1,
-            "x1": x-1,
+            "check_edge": y < len(pod) - 1 and x > 0,
+            "y1": y + 1,
+            "x1": x - 1,
         },
         "downright": {
-            "check_edge": y < len(pod)-1 and x < len(pod[0])-1,
-            "y1": y+1,
-            "x1": x+1,
+            "check_edge": y < len(pod) - 1 and x < len(pod[0]) - 1,
+            "y1": y + 1,
+            "x1": x + 1,
         },
     }
 
@@ -147,7 +148,7 @@ def part2(pod):
                     pod[y][x] = 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     data = load_data()
     print(f"Data1: {data}\n")
     print(f"Part 1: {part1(deepcopy(data))}\n")
