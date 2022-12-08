@@ -4,8 +4,8 @@ https://adventofcode.com/2022/day/7
 
 summary: recursively crawl a filesystem data structure and sum up disk space used
 
-Part 1 - 1491614 (90min)
-Part 2 - 6400111 (15min)
+Part 1 - 1491614
+Part 2 - 6400111
 """
 from pprint import pprint
 
